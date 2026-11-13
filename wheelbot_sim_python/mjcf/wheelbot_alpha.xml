@@ -1,0 +1,89 @@
+<mujoco>
+  <visual>
+    <global offwidth="1920" offheight="1920"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.35 0.35 0.35" specular="0.6 0.6 0.6"/>
+    <quality offsamples="8"/>
+  </visual>
+  <option gravity="0 0 -9.81"/>
+  <asset>
+    <mesh name="body" file="mesh/mujoco_simplified_body.stl"/>
+    <mesh name="wheel" file="mesh/actuator_rotor_simplified.stl"/>
+    <texture name="checker" type="2d" builtin="checker" width="1024" height="1024" rgb1="0.18 0.28 0.38" rgb2="0.08 0.16 0.26"/>
+    <material name="checker_mat" texture="checker" texrepeat="8 8" texuniform="true" reflectance="0"/>
+    <material name="aluminum" rgba="0.74 0.76 0.78 1" specular="0.9" shininess="0.8" reflectance="0"/>
+    <material name="bronze" rgba="0.70 0.50 0.22 1" specular="0.7" shininess="0.6" reflectance="0"/>
+    <material name="copper" rgba="0.75 0.38 0.20 1" specular="0.8" shininess="0.7" reflectance="0"/>
+    <material name="hub_dark" rgba="0.07 0.07 0.08 1" specular="0.3" shininess="0.3" reflectance="0"/>
+  </asset>
+  <worldbody>
+    <!-- Second light: fixed in the world, so it does not move with the robot -->
+    <light name="fill_light" diffuse="0.5 0.5 0.5" specular="0.6 0.6 0.6" pos="1 -1 3" dir="-0.3 0.3 -1" castshadow="false"/>
+
+    <body name="track" pos="0 0 0">
+    </body>
+    <geom name="ground" type="plane" size="8 8 0.1" material="checker_mat"/>
+    <body name="body" pos="0 0 .0645" euler="0 0 0">
+      <inertial pos="0 0 0" mass="0.43" diaginertia="220e-6 190e-6 300e-6"/>
+      <site name="imu_1" pos="-0.0234 -0.0204 0.01939" euler="180 0 90" type="box" size="0.0045 0.003 0.00095"/>
+      <site name="imu_2" pos="0.0234 0.0204 0.01939" euler="180 0 90" type="box" size="0.0045 0.003 0.00095"/>
+      <site name="imu_3" pos="-0.016427 0.020172 -0.01889" euler="0 0 90" type="box" size="0.0045 0.003 0.00095"/>
+      <site name="imu_4" pos="0.016368 -0.020481 -0.018916" euler="0 0 90" type="box" size="0.0045 0.003 0.00095"/>
+      <joint type="free"/>
+      <geom name="body_geom" type="mesh" mesh="body" material="aluminum"/>
+
+      <body name="wheel1" pos="0 0 -0.0325" euler="0 0 -90">
+        <inertial pos="0 0 0" mass="0.13" diaginertia="100e-6 53e-6 53e-6"/>
+        <joint name="w1" type="hinge" pos="0 0 0" axis="-1 0 0" damping="0.0"/>
+        <geom name="wheel_1_geom" type="mesh" mesh="wheel" material="bronze"/>
+        <!-- decorative copper windings + dark hub (rotation axis = local x) -->
+        <geom name="wheel_1_copper" type="cylinder" euler="0 90 0" size="0.021 0.0065" material="copper" contype="0" conaffinity="0"/>
+        <geom name="wheel_1_hub" type="cylinder" euler="0 90 0" size="0.009 0.0072" material="hub_dark" contype="0" conaffinity="0"/>
+      </body>
+
+      <body name="wheel2" pos="0 0 0.0325" euler="0 0 0">
+        <inertial pos="0 0 0" mass="0.13" diaginertia="100e-6 53e-6 53e-6"/>
+        <joint name="w2" type="hinge" pos="0 0 0" axis="1 0 0" damping="0.0"/>
+        <geom name="wheel_2_geom" type="mesh" mesh="wheel" material="bronze"/>
+        <geom name="wheel_2_copper" type="cylinder" euler="0 90 0" size="0.021 0.0065" material="copper" contype="0" conaffinity="0"/>
+        <geom name="wheel_2_hub" type="cylinder" euler="0 90 0" size="0.009 0.0072" material="hub_dark" contype="0" conaffinity="0"/>
+      </body>
+
+      <camera name="floating" pos="-0.5 0 0.3" euler="0 -60 270" mode="track"/>
+      <camera name="floating_far" pos="-0.85 0 0.85" euler="0 -45 270" mode="track"/>
+      <camera name="fixed" pos="-0.5 0 0.4" euler="0 -60 270" mode="fixed"/>
+    </body>
+    <light name="main_light" diffuse=".9 .9 .9" pos="0 0 5" dir="0 0 -1"/>
+    <camera name="origin" pos="-0.5 0 0.5" euler="0 -60 270" mode="track"/>
+    <camera name="origin_offset" pos="-0.7 0.4 0.7" euler="0 -45 270" mode="track"/>
+    <camera name="origin_close" pos="-0.5 0 0.3" euler="0 -60 270" mode="track"/>
+    <camera name="origin_right" pos="0 -0.5 0.85" xyaxes="1 0 0 0 0.669 0.743"/>
+    <camera name="origin_right_far" pos="0 -2.351 2.054" xyaxes="1 0 0 0 0.669 0.743"/>
+    <camera name="origin_back_far" pos="-1.381 0.25 1.643" xyaxes="0 -1 0 0.669 0 0.743"/>
+    <camera name="origin_back_offset" pos="-0.965 -0.2 1.212" xyaxes="0 -1 0 0.719 0 0.695"/>
+  </worldbody>
+  <actuator>
+    <motor name="motor_1" joint="w1" gear="1" ctrlrange="-0.5 0.5"/>
+    <motor name="motor_2" joint="w2" gear="1" ctrlrange="-0.5 0.5"/>
+  </actuator>
+  <sensor>
+    <accelerometer name="acc_1" site="imu_1"/>
+    <accelerometer name="acc_2" site="imu_2"/>
+    <accelerometer name="acc_3" site="imu_3"/>
+    <accelerometer name="acc_4" site="imu_4"/>
+
+    <gyro name="gyr_1" site="imu_1"/>
+    <gyro name="gyr_2" site="imu_2"/>
+    <gyro name="gyr_3" site="imu_3"/>
+    <gyro name="gyr_4" site="imu_4"/>
+
+    <actuatorpos name="motor_1_pos" actuator="motor_1"/>
+    <actuatorpos name="motor_2_pos" actuator="motor_2"/>
+  </sensor>
+  <contact>
+    <exclude body1="wheel1" body2="wheel2"/>
+    <exclude body1="wheel1" body2="body"/>
+    <exclude body1="wheel2" body2="body"/>
+
+    <pair geom1="wheel_1_geom" geom2="ground" condim="6" friction="1 1 0.005 0.0001 0.0001" solimp="0.9 0.95 0.001 0.5 2" solref="0.02 1"/>
+  </contact>
+</mujoco>

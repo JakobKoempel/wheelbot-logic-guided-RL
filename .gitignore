@@ -1,0 +1,15 @@
+MUJOCO_LOG.TXT
+*.pyc
+*/__pycache__/
+*.csv 
+*.egg-info
+wheelbot_sim_python/agents/*
+wandb/
+*/wandb/
+*.ipynb
+exp/
+trajectory_plots/
+setpoint_plot.png
+output_eval.out
+output_job.out
+outputs/

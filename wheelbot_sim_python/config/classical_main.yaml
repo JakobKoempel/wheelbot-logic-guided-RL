@@ -1,0 +1,18 @@
+defaults:
+  - _self_
+  - algorithm: sac_classical
+  - env: wheelbot_classical
+  - deep_ltl: deep_ltl_net
+
+seed: 5
+ 
+experiment: classical
+wandb_project: "JAX_Mini_Wheelbot"
+
+root_dir: "./exp"
+hydra:
+  run:
+    dir: ${root_dir}/${experiment}/${now:%Y.%m.%d}/${now:%H%M%S}
+
+  sweep:
+    dir: ${root_dir}/${experiment}/${now:%Y.%m.%d}/${now:%H%M%S}

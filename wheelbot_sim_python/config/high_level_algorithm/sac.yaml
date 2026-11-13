@@ -1,0 +1,22 @@
+name: "sac"
+
+num_timesteps: 4000000
+episode_length: 3
+num_envs: 2000
+num_eval_envs: 1000
+learning_rate: 1e-4
+discounting: 0.99
+batch_size: 256
+num_evals: 101
+normalize_observations: False
+max_replay_size: 100000
+min_replay_size: 4000
+deterministic_eval: True
+grad_updates_per_step: 100
+hidden_layer_sizes: [256, 256]
+action_repeat: 1
+control_interval: 6
+reward_scaling: 1
+agent_dir: exp/hl_test/2026.11.11/085402/best_policy
+her: False
+share_params: False

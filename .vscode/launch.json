@@ -1,0 +1,75 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run: DBA_repeat_eval",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.deepltl_repeat_eval_dba",
+            "args": ["+agent_dir=saved_agents/consecutive_setpoints"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Run: DBA_eval",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.deepltl_eval_dba",
+            "args": ["+agent_dir=saved_agents/roll_angles/r_07"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Run: path_eval",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.deepltl_path_eval",
+            "args": ["+agent_dir=saved_agents/roll_angles/r_07"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Visualize: Setpoint",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.visualize_setpoint",
+            "args": ["+agent_dir=saved_agents/roll_angles/r_07"],
+            "console": "integratedTerminal",
+            "env": {
+                "MUJOCO_GL": "egl",
+            }
+        },
+        {
+            "name": "Visualize: Classical Setpoint",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.visualize_classical_setpoint",
+            "args": ["+agent_dir=saved_agents/classical"],
+            "console": "integratedTerminal",
+            "env": {
+                "MUJOCO_GL": "egl",
+            }
+        },
+        {
+            "name": "Visualize: Consecutive Setpoints",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.visualize_consecutive_setpoints",
+            "args": ["+agent_dir=saved_agents/consecutive_setpoints"],
+            "console": "integratedTerminal",
+            "env": {
+                "MUJOCO_GL": "egl",
+            }
+        },
+        {
+            "name": "Visualize: Zone Env",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wheelbot_sim_python.visualize_zone_env",
+            "args": ["+agent_dir=saved_agents/zone_env/best_policy",
+                     "+low_level_agent_dir=saved_agents/consecutive_setpoints" ],
+            "console": "integratedTerminal",
+            "env": {
+                "MUJOCO_GL": "egl",
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false"
+            }
+        },      
+    ]
+}

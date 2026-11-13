@@ -1,0 +1,19 @@
+name: Wheelbot
+control_interval: 6
+K_roll: [-1.3e0,  -1.6e-1,  -0.8e-04, -4e-04]
+K_pitch: [-400e-3, -40e-3, -4e-3,  -3e-3]
+Q: [100,0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+R: [1, 1]
+action_lim: 0.5
+max_state: [!!float .inf, 0.7854, 0.7854, 40, 40, 40, !!float .inf, 800, !!float .inf, 800]
+action_scale: 0.23
+
+min_theta: -3.1415
+max_theta: 3.1415
+min_distance: 0.5
+max_distance: 1.5
+
+# atomic proposition parameters for the DeepLTL agent
+speed_threshold: 7
+roll_threshold: 0.07
+setpoint_radius: 0.25

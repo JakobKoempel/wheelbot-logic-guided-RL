@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+  # training config of the low level (setpoint agent)
+  - algorithm: sac
+  # training config of the high level (zone env)
+  - high_level_algorithm: sac
+  # environment config shared by both levels
+  - env: wheelbot
+  - deep_ltl: deep_ltl_net
+
+seed: 2
+
+experiment: hl_test_retrain
+wandb_project: "JAX_Mini_Wheelbot"
+
+root_dir: "./exp"
+hydra:
+  run:
+    dir: ${root_dir}/${experiment}/${now:%Y.%m.%d}/${now:%H%M%S}
+
+  sweep:
+    dir: ${root_dir}/${experiment}/${now:%Y.%m.%d}/${now:%H%M%S}

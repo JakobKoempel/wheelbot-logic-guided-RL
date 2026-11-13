@@ -1,0 +1,20 @@
+name: "sac"
+
+num_timesteps: 100000000
+episode_length: 1500
+num_envs: 2000
+num_eval_envs: 1000
+learning_rate: 1e-4
+discounting: 0.99
+batch_size: 256
+num_evals: 101
+normalize_observations: True
+max_replay_size: 1000000
+min_replay_size: 100000
+deterministic_eval: True
+grad_updates_per_step: 100
+hidden_layer_sizes: [256, 256]
+action_repeat: 1
+control_interval: 6
+reward_scaling: 0.1
+agent_dir: null

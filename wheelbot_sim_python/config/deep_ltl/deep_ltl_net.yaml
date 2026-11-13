@@ -1,0 +1,21 @@
+env_net:
+    layer_sizes: [256]
+    activate_final: True
+
+reach_avoid_net:
+    assignment_embedding_size: 16
+    aggr_mode: 'sum'
+    hidden_size: 16
+    
+    assignment_net:
+        layer_sizes: []
+        activate_final: True
+
+    set_net:
+        layer_sizes: [16, 16]
+        activate_final: False
+
+
+head_net:
+    layer_sizes: [256, 256]
+    activate_final: False
