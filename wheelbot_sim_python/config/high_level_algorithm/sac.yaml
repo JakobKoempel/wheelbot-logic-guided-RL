@@ -17,6 +17,6 @@ hidden_layer_sizes: [256, 256]
 action_repeat: 1
 control_interval: 6
 reward_scaling: 1
-agent_dir: exp/hl_test/2026.11.11/085402/best_policy
+agent_dir: null
 her: False
 share_params: False
