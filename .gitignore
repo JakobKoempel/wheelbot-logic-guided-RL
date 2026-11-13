@@ -12,4 +12,5 @@ trajectory_plots/
 setpoint_plot.png
 output_eval.out
 output_job.out
-outputs/
+outputs/__pycache__/
+*.pyc
